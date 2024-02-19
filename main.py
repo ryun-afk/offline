@@ -10,7 +10,7 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 # initialize the WindowCapture class
 wincap = WindowCapture('Mabinogi')
-potion = MatchTemplate('test.png')
+#potion = MatchTemplate('test.png')
 
 while(True):
     # press 'q' with the output window focused to exit.
@@ -20,9 +20,11 @@ while(True):
         break
 
     # processing
-    wincap.update_screenshot()
+    original_screenshot = wincap.update_screenshot()
+
 
     # for debugging/performance
+    wincap.display_screenshot(original_screenshot)
     wincap.print_fps()
 
 print('Done.')

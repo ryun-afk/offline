@@ -80,10 +80,7 @@ class WindowCapture:
         # see the discussion here:
         # https://github.com/opencv/opencv/issues/14866#issuecomment-580207109
         img = np.ascontiguousarray(img)
-
-        # saves screen image in memory
-        self.original_image=img
-        self.computer_image=self.filter_image(img = img)
+        return img
 
     # filter images to save memory
     def filter_image(self,img):
