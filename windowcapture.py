@@ -89,10 +89,6 @@ class WindowCapture:
         return image
 
     # display computer vision for debugging
-    def display_screenshot(self, img = None, resize_factor = .5,):
+    def display_screenshot(self, name = 'Computer Vision',img = None, resize_factor = .5,):
         image = cv.resize(img, (0, 0), fx=resize_factor, fy=resize_factor)
-        cv.imshow('Computer Vision', image)
-
-    # filter computer vision
-    def filter_screenshot(self):
-        filter_image = self.original_image
+        cv.imshow(name, image)

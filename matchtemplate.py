@@ -10,10 +10,9 @@ class MatchTemplate:
 
     def __init__(self,template_path):
         self.template = self.read_image_path(template_path)
-
-        cv.imshow('Computer Vision', self.template)
-        self.w = self.template.shape[1]
-        self.h = self.template.shape[0]
+        
+        #self.w = self.template.shape[1]
+        #self.h = self.template.shape[0]
 
     # read image path and filter
     def read_image_path(self, image_path = None):
