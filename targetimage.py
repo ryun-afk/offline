@@ -1,7 +1,7 @@
 import cv2 as cv
 import numpy as np
 
-class MatchTemplate:
+class TargetImage:
 
     #properties
     template = None

@@ -1,15 +1,16 @@
 import cv2 as cv
 import os
+import debug
 
 from windowcapture import WindowCapture
-from matchtemplate import MatchTemplate
+from targetimage import MatchTemplate
 
 # Change the working directory to the folder this script is in.
 # Doing this because I'll be putting the files from each video in their own folder on GitHub
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 # initialize the WindowCapture class
-wincap = WindowCapture('Mabinogi')
+capture = WindowCapture('Mabinogi')
 # initialize templates
 test = MatchTemplate('images/test.jpg')
 
@@ -20,15 +21,16 @@ while(True):
         break
 
     # for processing
-    original_image = wincap.update_screenshot()
-    points = test.find_image(original_image)
+    capture.update_screen()
+
+    original = capture.image
+    points = test.find_image(original)
 
 
-    # for debugging/performance
-    wincap.draw_points(image = original_image, points = points, )
-    wincap.show_image(name = 'marked', img = original_image)
+    # for debug
+    debug.mark_image(original,points)
+    debug.show_image('original', original)
     
-    wincap.print_fps()
 
 print('Done.')
 
