@@ -80,6 +80,7 @@ class WindowCapture:
         # see the discussion here:
         # https://github.com/opencv/opencv/issues/14866#issuecomment-580207109
         img = np.ascontiguousarray(img)
+
         return img
 
     # filter images to save memory
@@ -89,6 +90,15 @@ class WindowCapture:
         return image
 
     # display computer vision for debugging
-    def display_screenshot(self, name = 'Computer Vision',img = None, resize_factor = .5,):
+    def show_image(self, name = 'Computer Vision',img = None, resize_factor = .5,):
         image = cv.resize(img, (0, 0), fx=resize_factor, fy=resize_factor)
         cv.imshow(name, image)
+
+    # draw points
+    def draw_points(self, image = None, points = (0,0), marker_color = (0, 255, 0)):
+        img = image
+        marker_type = cv.MARKER_CROSS
+        for (x, y) in points:
+            # Draw the center point
+            cv.drawMarker(img, (x, y), color = marker_color, markerType = marker_type, markerSize=20, thickness=1)
+        return image

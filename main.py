@@ -10,22 +10,24 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 # initialize the WindowCapture class
 wincap = WindowCapture('Mabinogi')
-potion = MatchTemplate('test.jpg')
+# initialize templates
+test = MatchTemplate('images/test.jpg')
 
 while(True):
-    # press 'q' with the output window focused to exit.
-    # waits 1 ms every loop to process key presses
+    # press 'q' with the output window focused for 1 ms to exit.
     if cv.waitKey(1) == ord('q'):
         cv.destroyAllWindows()
         break
 
-    # processing
-    original_screenshot = wincap.update_screenshot()
+    # for processing
+    original_image = wincap.update_screenshot()
+    points = test.find_image(original_image)
+
 
     # for debugging/performance
-    wincap.display_screenshot(name = 'original_screenshot', 
-                              img = original_screenshot)
-
+    wincap.draw_points(image = original_image, points = points, )
+    wincap.show_image(name = 'marked', img = original_image)
+    
     wincap.print_fps()
 
 print('Done.')
