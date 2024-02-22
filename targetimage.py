@@ -20,7 +20,7 @@ class TargetImage:
         return image
     
     # find target image and return (x,y)points
-    def find_image(self, target = None, threshold=0.5):
+    def found_in(self, target = None, threshold=0.5):
 
         # There are 6 methods to choose from:
         # TM_CCOEFF, TM_CCOEFF_NORMED, 

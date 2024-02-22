@@ -63,3 +63,4 @@ class WindowCapture:
         img = np.ascontiguousarray(img)
 
         self.image = img
+
