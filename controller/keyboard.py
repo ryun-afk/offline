@@ -4,11 +4,10 @@ import threading
 class Controller:
 
     # properties
-    keyboard = None
-    mouse = None
+    hwnd = None
     mouse_position = (0,0)
 
 
     # constructor
-    def __init__(self):
-        self.keyboard = None
+    def __init__(self, hwnd):
+        self.hwnd = hwnd

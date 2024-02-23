@@ -5,10 +5,10 @@ import win32gui, win32ui, win32con, win32api
 class WindowCapture:
 
     # properties
-    image = None
     hwnd = None
     w = 0
     h = 0
+    image = None
 
     # constructor
     def __init__(self, window_name):
@@ -16,7 +16,15 @@ class WindowCapture:
         self.hwnd = win32gui.FindWindow(None, window_name)
         if not self.hwnd:
             raise Exception('Window not found: {}'.format(window_name))
+        
+    # uses win32 to refresh computer vision
+    def update_screen(self):
 
+        self.get_window_size()
+        self.get_window_image()
+
+    # get window size
+    def get_window_size(self):
         # get the window size
         window_rect = win32gui.GetWindowRect(self.hwnd)
         self.w = window_rect[2] - window_rect[0]
@@ -30,14 +38,12 @@ class WindowCapture:
         self.cropped_x = border_pixels
         self.cropped_y = titlebar_pixels
 
-        # set the cropped coordinates offset so we can translate screenshot
         # images into actual screen positions
         self.offset_x = window_rect[0] + self.cropped_x
         self.offset_y = window_rect[1] + self.cropped_y
-
-    # uses win32 to refresh computer vision
-    def update_screen(self):
-
+    
+    # get window image
+    def get_window_image(self):
         # get the window image data
         wDC = win32gui.GetWindowDC(self.hwnd)
         dcObj = win32ui.CreateDCFromHandle(wDC)
@@ -63,4 +69,5 @@ class WindowCapture:
         img = np.ascontiguousarray(img)
 
         self.image = img
+
 

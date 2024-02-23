@@ -29,4 +29,4 @@ class Debug:
             # Draw the center point
             cv.drawMarker(img, (x, y), color = marker_color, markerType = marker_type, markerSize=20, thickness=1)
 
-        return image
+        return img

@@ -1,16 +1,19 @@
 import cv2 as cv
 import os
 
-from windowcapture import WindowCapture
-from targetimage import TargetImage
+from threading import Thread
+
+from capture.keyboard import KeyboardCapture
+from capture.window import WindowCapture
+from process.targetimage import TargetImage
 from debug import Debug
 
-# Change the working directory to the folder this script is in.
-# Doing this because I'll be putting the files from each video in their own folder on GitHub
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
+test = TargetImage('img/test.jpg')
 
-mabi = WindowCapture('Mabinogi')
-test = TargetImage('images/test.jpg')
+
+game = WindowCapture('Mabinogi')
+keyboard = KeyboardCapture()
 debug = Debug()
 
 while(True):
@@ -18,16 +21,13 @@ while(True):
         cv.destroyAllWindows()
         break
 
-    # for processing
-    mabi.update_screen()
-    original = mabi.image
-    points = test.found_in(original)
+    Thread(game.update_screen())
+    Thread(keyboard.record_keyboard())
 
-    # for debug
-    debug.mark_image(original, points)
-    debug.show_image('original', original)
+    debug.mark_image(image = game.image, points = test.find_in(game.image))
+    debug.show_image(img = game.image)
     debug.print_fps()
+
     
 
 print('Done.')
-
