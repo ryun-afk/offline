@@ -1,20 +1,24 @@
 import cv2 as cv
 import os
+import time
 
 from threading import Thread
 
-from capture.keyboard import KeyboardCapture
-from capture.window import WindowCapture
+from util.keyboard import KeyboardCapture
+from util.window import WindowCapture
+from util.debug import Debug
+
 from process.targetimage import TargetImage
-from debug import Debug
+
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-test = TargetImage('img/test.jpg')
+test = TargetImage('images/test.jpg')
 
 
 game = WindowCapture('Mabinogi')
 keyboard = KeyboardCapture()
 debug = Debug()
+
 
 while(True):
     if cv.waitKey(1) == ord('q'):
@@ -24,7 +28,7 @@ while(True):
     Thread(game.update_screen())
     Thread(keyboard.record_keyboard())
 
-    debug.mark_image(image = game.image, points = test.find_in(game.image))
+    #points = test.image_locations(canvas = game.image)
     debug.show_image(img = game.image)
     debug.print_fps()
 

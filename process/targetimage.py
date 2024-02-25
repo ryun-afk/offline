@@ -11,20 +11,19 @@ class TargetImage:
 
     # constructor
     def __init__(self,image_path):
-        self.template = cv.imread(image_path, cv.IMREAD_UNCHANGED)
-
-        self.w = self.template.shape[1]
-        self.h = self.template.shape[0]
+        self.image = cv.imread(image_path, cv.IMREAD_UNCHANGED)
+        self.w = self.image.shape[1]
+        self.h = self.image.shape[0]
     
     # find target image and return (x,y)points
-    def find_in(self, canvas = None, threshold=0.5):
+    def image_locations(self, canvas = None, threshold=0.5):
 
         # There are 6 methods to choose from:
         # TM_CCOEFF, TM_CCOEFF_NORMED, 
         # TM_CCORR, TM_CCORR_NORMED,
         # TM_SQDIFF, TM_SQDIFF_NORMED
         method = cv.TM_CCOEFF_NORMED
-        result = cv.matchTemplate(canvas, self.template, method)
+        result = cv.matchTemplate(canvas, self.image, method)
 
         matches = np.where(result >= threshold)
         points = list(zip(*matches[::-1]))

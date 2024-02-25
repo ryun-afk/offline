@@ -1,23 +1,31 @@
 import keyboard
+import time
 
 class KeyboardCapture:
     
     # properties
     hwnd = None
+    move_forward = 'w'
+    move_back = 's'
+    move_left = 'a'
+    move_right = 'd'
+    keyboard_action = 'e'
+    object_targeting = 'q'
 
     def __init__(self):
         self.hwnd = None
 
-    # Define a callback function to handle keyboard events
     def on_key_event(self,event):
         if event.event_type == keyboard.KEY_DOWN:
             print(f"Key {event.name} pressed")
-        elif event.event_type == keyboard.KEY_UP:
-            print(f"Key {event.name} released")
 
     def record_keyboard(self):
-        # Register the callback function for keyboard events
         keyboard.on_press(self.on_key_event)
         keyboard.on_release(self.on_key_event)
 
+    def send_key(self,key, delay = .1):
+        keyboard.press(key)
+        time.sleep(delay)
+        keyboard.release(key)
 
+        
