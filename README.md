@@ -1,6 +1,7 @@
 # offline
  Python 3.10.0
 
+* plan to add
 
 main.py:
     -initializes window, keyboard, debug
@@ -12,6 +13,7 @@ main.py:
             -finds window
             -gets window size
             -refreshes computer vision
+            -show images
         
         keyboard.py 
             -record keyboard events
@@ -21,18 +23,10 @@ main.py:
             -get mouse position
             -control mouse
 
-        debug
-            -print fps
-            -display computer vision
-            -mark images with given locations
-
     process folder:
         targetimage.py
-            -store: target image and dimensions
-            -return image locations
-            
-        filter.py*
-            -grayscale
-            -blur
+            -save: target image and dimensions
+            -find_locations
+            -show_template
 
 

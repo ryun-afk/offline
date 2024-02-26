@@ -1,26 +1,23 @@
 import cv2 as cv
 import os
-import time
 
 from threading import Thread
 
-from util.keyboard import KeyboardCapture
-from util.window import WindowCapture
-from util.debug import Debug
+from util.keyboard import Keyboard
+from util.window import Window
 
-from process.targetimage import TargetImage
-
+from process.processimage import ProcessImage
 
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-test = TargetImage('images/test.jpg')
+test = ProcessImage('images/test.jpg')
+raccoon = ProcessImage('images/raccoon.png')
 
-
-game = WindowCapture('Mabinogi')
-keyboard = KeyboardCapture()
-debug = Debug()
-
+game = Window('Mabinogi')
+keyboard = Keyboard()
+    
 
 while(True):
+    # find better way to end loop
     if cv.waitKey(1) == ord('q'):
         cv.destroyAllWindows()
         break
@@ -28,10 +25,13 @@ while(True):
     Thread(game.update_screen())
     Thread(keyboard.record_keyboard())
 
-    #points = test.image_locations(canvas = game.image)
-    debug.show_image(img = game.image)
-    debug.print_fps()
+    test.find_locations(game.image_original)
+    test.debug(game.image_original)
 
-    
+    game.debug()
+    game.print_fps()
+
 
 print('Done.')
+
+

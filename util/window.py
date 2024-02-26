@@ -1,29 +1,35 @@
 import numpy as np
 import win32gui, win32ui, win32con, win32api
+import cv2 as cv
+from time import time
 
-
-class WindowCapture:
+class Window:
 
     # properties
     hwnd = None
     w = 0
     h = 0
-    image = None
+    image_original = None
+    image_grayscale = None
+    loop_time = 0
 
-    # constructor
     def __init__(self, window_name):
         # find the handle for the window we want to capture
         self.hwnd = win32gui.FindWindow(None, window_name)
         if not self.hwnd:
             raise Exception('Window not found: {}'.format(window_name))
+        self.loop_time = time()
+
+    def print_fps(self):
+
+        print('FPS {}'.format(1 / (time() - self.loop_time)))
+        self.loop_time = time()
         
-    # uses win32 to refresh computer vision
     def update_screen(self):
 
         self.get_window_size()
         self.get_window_image()
 
-    # get window size
     def get_window_size(self):
         # get the window size
         window_rect = win32gui.GetWindowRect(self.hwnd)
@@ -42,7 +48,6 @@ class WindowCapture:
         self.offset_x = window_rect[0] + self.cropped_x
         self.offset_y = window_rect[1] + self.cropped_y
     
-    # get window image
     def get_window_image(self):
         # get the window image data
         wDC = win32gui.GetWindowDC(self.hwnd)
@@ -68,6 +73,13 @@ class WindowCapture:
         img = img[...,:3]
         img = np.ascontiguousarray(img)
 
-        self.image = img
+        self.image_original = img
+        self.image_grayscale = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 
 
+    def debug(self, resize_factor = .3):
+        
+        cv.imshow('original', cv.resize(self.image_original, (0, 0), fx=resize_factor, fy=resize_factor))
+        cv.imshow('grayscale', cv.resize(self.image_grayscale, (0, 0), fx=resize_factor, fy=resize_factor))
+        #cv.imshow(name, cv.resize(image, (0, 0), fx=resize_factor, fy=resize_factor))
+        #cv.imshow(name, cv.resize(image, (0, 0), fx=resize_factor, fy=resize_factor))

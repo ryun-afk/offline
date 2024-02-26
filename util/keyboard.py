@@ -1,7 +1,7 @@
 import keyboard
 import time
 
-class KeyboardCapture:
+class Keyboard:
     
     # properties
     hwnd = None
