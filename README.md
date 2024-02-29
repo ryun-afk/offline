@@ -24,9 +24,9 @@ main.py:
             -control mouse
 
     process folder:
-        targetimage.py
-            -save: target image and dimensions
-            -find_locations
-            -show_template
+        target.py
+            -save: image and dimensions
+            -find locations
+            -mark locations
 
 

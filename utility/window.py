@@ -76,10 +76,10 @@ class Window:
         self.image_original = img
         self.image_grayscale = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 
-
-    def debug(self, resize_factor = .3):
+    def debug(self, name = 'debug', image = None, resize_factor = .4):
         
-        cv.imshow('original', cv.resize(self.image_original, (0, 0), fx=resize_factor, fy=resize_factor))
-        cv.imshow('grayscale', cv.resize(self.image_grayscale, (0, 0), fx=resize_factor, fy=resize_factor))
-        #cv.imshow(name, cv.resize(image, (0, 0), fx=resize_factor, fy=resize_factor))
-        #cv.imshow(name, cv.resize(image, (0, 0), fx=resize_factor, fy=resize_factor))
+        if image is None:
+            image = self.image_original
+
+        cv.imshow(name, cv.resize(image, (0, 0), fx=resize_factor, fy=resize_factor))
+
